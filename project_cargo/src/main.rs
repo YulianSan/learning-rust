@@ -1,7 +1,8 @@
 // mod game;
 // mod variables;
 // mod functions;
-mod flow;
+// mod flow;
+mod ownership;
 
 fn main() {
     // game::game()
@@ -13,7 +14,9 @@ fn main() {
     // println!("{}", functions::plus_one(1));
     // functions::block();
     // functions::flow();
-    flow::loops();
-    flow::loop_loop_break();
-    flow::fors();
+    // flow::loops();
+    // flow::loop_loop_break();
+    // flow::fors();
+
+    ownership::example();
 }
