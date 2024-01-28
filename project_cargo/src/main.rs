@@ -2,7 +2,10 @@
 // mod variables;
 // mod functions;
 // mod flow;
-mod ownership;
+// mod ownership;
+// mod slices;
+// mod structs;
+mod impls;
 
 fn main() {
     // game::game()
@@ -17,6 +20,8 @@ fn main() {
     // flow::loops();
     // flow::loop_loop_break();
     // flow::fors();
-
-    ownership::example();
+    // ownership::example();
+    // slices::example3();
+    // structs::example5();
+    impls::example1();
 }
