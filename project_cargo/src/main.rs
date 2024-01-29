@@ -5,7 +5,8 @@
 // mod ownership;
 // mod slices;
 // mod structs;
-mod impls;
+// mod impls;
+mod enums;
 
 fn main() {
     // game::game()
@@ -23,5 +24,5 @@ fn main() {
     // ownership::example();
     // slices::example3();
     // structs::example5();
-    impls::example1();
+    enums::example5();
 }
