@@ -1,3 +1,18 @@
+#![allow(unused)]
+mod modules;
+// crate import from current mod or files
+// create a alias
+use crate::modules::{
+    food::{show_food, Food},
+    vegetables::{show_vegetable as sv, Asparagus},
+};
+
+// import std::io and std::io::Write
+use std::io::{self, Write};
+
+// // can import all modules in std
+// use std::*;
+
 // mod game;
 // mod variables;
 // mod functions;
@@ -6,9 +21,9 @@
 // mod slices;
 // mod structs;
 // mod impls;
-mod enums;
 
 fn main() {
+    modules::test();
     // game::game()
     // variables::mut_example();
     // variables::const_example();
@@ -23,6 +38,22 @@ fn main() {
     // flow::fors();
     // ownership::example();
     // slices::example3();
-    // structs::example5();
-    enums::example5();
+    // structs::example6();
+    // enums::example5();
+    consume_modules();
+}
+
+fn consume_modules() {
+    let asparagus = Asparagus {
+        name: String::from("Asparagus"),
+        color: String::from("Green"),
+    };
+
+    let food = Food {
+        name: String::from("Food"),
+        color: String::from("Red"),
+    };
+
+    sv(asparagus);
+    show_food(food);
 }
