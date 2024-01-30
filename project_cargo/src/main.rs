@@ -1,14 +1,22 @@
 #![allow(unused)]
-mod modules;
+
+mod collections;
+
+use crate::collections::vec;
+
+fn main() {
+    vec::example3();
+}
+// mod modules;
 // crate import from current mod or files
 // create a alias
-use crate::modules::{
-    food::{show_food, Food},
-    vegetables::{show_vegetable as sv, Asparagus},
-};
+// use crate::modules::{
+//     food::{show_food, Food},
+//     vegetables::{show_vegetable as sv, Asparagus},
+// };
 
 // import std::io and std::io::Write
-use std::io::{self, Write};
+// use std::io::{self, Write};
 
 // // can import all modules in std
 // use std::*;
@@ -22,38 +30,38 @@ use std::io::{self, Write};
 // mod structs;
 // mod impls;
 
-fn main() {
-    modules::test();
-    // game::game()
-    // variables::mut_example();
-    // variables::const_example();
-    // variables::scope_example();
-    // variables::reassignment_example();
-    // variables::type_example();
-    // println!("{}", functions::plus_one(1));
-    // functions::block();
-    // functions::flow();
-    // flow::loops();
-    // flow::loop_loop_break();
-    // flow::fors();
-    // ownership::example();
-    // slices::example3();
-    // structs::example6();
-    // enums::example5();
-    consume_modules();
-}
+// fn main() {
+// modules::test();
+// game::game()
+// variables::mut_example();
+// variables::const_example();
+// variables::scope_example();
+// variables::reassignment_example();
+// variables::type_example();
+// println!("{}", functions::plus_one(1));
+// functions::block();
+// functions::flow();
+// flow::loops();
+// flow::loop_loop_break();
+// flow::fors();
+// ownership::example();
+// slices::example3();
+// structs::example6();
+// enums::example5();
+// consume_modules();
+// }
 
-fn consume_modules() {
-    let asparagus = Asparagus {
-        name: String::from("Asparagus"),
-        color: String::from("Green"),
-    };
-
-    let food = Food {
-        name: String::from("Food"),
-        color: String::from("Red"),
-    };
-
-    sv(asparagus);
-    show_food(food);
-}
+// fn consume_modules() {
+//     let asparagus = Asparagus {
+//         name: String::from("Asparagus"),
+//         color: String::from("Green"),
+//     };
+//
+//     let food = Food {
+//         name: String::from("Food"),
+//         color: String::from("Red"),
+//     };
+//
+//     sv(asparagus);
+//     show_food(food);
+// }
