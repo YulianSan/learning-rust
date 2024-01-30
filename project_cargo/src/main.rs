@@ -2,10 +2,10 @@
 
 mod collections;
 
-use crate::collections::vec;
+use crate::collections::strings;
 
 fn main() {
-    vec::example3();
+    strings::example3();
 }
 // mod modules;
 // crate import from current mod or files
