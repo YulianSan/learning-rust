@@ -1,12 +1,25 @@
 #![allow(unused)]
 
-mod collections;
-
-use crate::collections::strings;
-
+mod generics;
 fn main() {
-    strings::example3();
+    generics::example4();
 }
+// mod traits;
+// mod collections;
+// mod macros;
+// mod errors;
+// use crate::collections::vec;
+// mod game;
+
+// fn main() {
+// traits::example1();
+// macros::example1();
+// vec::example1();
+// errors::example2();
+// errors::example1();
+// println!("file: {}", errors::example7("test.txt").expect("error out"));
+// game::game2();
+// }
 // mod modules;
 // crate import from current mod or files
 // create a alias
