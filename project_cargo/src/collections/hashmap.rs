@@ -63,3 +63,14 @@ pub fn example4() {
 
     println!("sum: {}", x(1, 2));
 }
+
+pub fn example5() {
+    let mut v = HashMap::new();
+    v.insert(String::from("blue"), 1);
+    v.insert(String::from("red"), 1);
+
+    let x = String::from("purple");
+    // get value or default value if not exists
+    let y = v.get(&x).copied().unwrap_or(0);
+    println!("y: {}", y);
+}
