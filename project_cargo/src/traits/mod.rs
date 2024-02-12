@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 trait Test {
     // default fn in trait
     fn test_old(&self) {
@@ -50,6 +52,40 @@ pub fn example2() {
     need_impls1(&s1);
     need_impls3(&s1, &s2);
 }
+
+pub fn example3() {
+    #[derive(Debug)]
+    struct Pair<T> {
+        x: T,
+        y: T,
+    }
+
+    impl<T> Pair<T> {
+        fn new(x: T, y: T) -> Self {
+            Self { x, y }
+        }
+    }
+
+    // only impl if is Display and PartialOrd
+    impl<T: Display + PartialOrd> Pair<T> {
+        fn cmp_display(&self) {
+            if self.x >= self.y {
+                println!("The largest member is x = {}", self.x);
+            } else {
+                println!("The largest member is y = {}", self.y);
+            }
+        }
+    }
+
+    let pair = Pair::new(10, 20);
+    let pair2 = Pair::new(None::<i32>, None::<i32>);
+    pair.cmp_display();
+    // // pair2 no impl Display + PartialOrd
+    // pair2.cmp_display();
+    println!("pair2: {:?}", pair2);
+}
+
+pub fn example4() {}
 
 fn need_impl1(x: &impl Build) {
     x.test();
