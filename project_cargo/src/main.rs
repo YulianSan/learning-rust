@@ -1,9 +1,11 @@
 #![allow(unused)]
 
-mod generics;
+mod project_io;
+
 fn main() {
-    generics::example4();
+    project_io::main();
 }
+
 // mod traits;
 // mod collections;
 // mod macros;
