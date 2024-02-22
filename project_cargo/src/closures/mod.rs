@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::{collections::HashMap, thread, time::Duration};
 
 #[derive(Debug, PartialEq, Copy, Clone, Eq, Hash)]
 enum ShirtColor {
@@ -51,4 +51,75 @@ pub fn example1() {
         "The user with preference {:?} gets {:?}",
         user_pref2, giveaway2
     );
+}
+
+pub fn example2() {
+    let expensive_closure = |num: u32| -> u32 {
+        let seconds = Duration::from_secs(num as u64);
+
+        println!("sleep {:?}", seconds);
+        thread::sleep(seconds);
+        num
+    };
+
+    expensive_closure(2);
+    println!("finish");
+}
+
+pub fn example3() {
+    let example_closure = |x| x;
+
+    let s = example_closure(String::from("hello"));
+    // // error because params x is String because line above
+    // let n = example_closure(5);
+}
+
+pub fn example4() {
+    let mut list = vec![];
+    let x: String = String::from("hello");
+    println!("Before defining closure: {:?}", list);
+
+    // FnOnce
+    let thread_closure = move || {
+        // x is moved
+        list.push(x);
+        println!("From thread: {:?}", list);
+    };
+
+    // only can call once
+    // thread_closure();
+
+    // taking ownership of variable test
+    thread::spawn(thread_closure).join().unwrap();
+}
+
+pub fn example5() {
+    #[derive(Debug)]
+    struct Rectangle {
+        width: u32,
+        height: u32,
+    }
+
+    let mut list = [
+        Rectangle {
+            width: 10,
+            height: 1,
+        },
+        Rectangle {
+            width: 3,
+            height: 5,
+        },
+        Rectangle {
+            width: 9,
+            height: 12,
+        },
+    ];
+
+    let mut count = 0;
+
+    list.sort_by_key(|item| {
+        count += 1;
+        println!("a: {:?}, count: {}", item, count);
+        item.width
+    });
 }
