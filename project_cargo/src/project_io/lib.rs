@@ -8,14 +8,22 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn new(args: &[String]) -> Result<Config, &'static str> {
-        if args.len() < 3 {
-            return Err("Lack of parameters");
-        }
+    pub fn new(mut args: impl Iterator<Item = String>) -> Result<Config, &'static str> {
+        args.next();
+
+        let query = match args.next() {
+            Some(arg) => arg,
+            None => return Err("Didn't get a query string"),
+        };
+
+        let file_path = match args.next() {
+            Some(arg) => arg,
+            None => return Err("Didn't get a query string"),
+        };
 
         Ok(Config {
-            query: args[1].clone(),
-            file_path: args[2].clone(),
+            query,
+            file_path,
             ignore_case: env::var("IGNORE_CASE").is_ok(),
         })
     }
@@ -34,15 +42,10 @@ pub fn run(config: &Config) -> Result<String, std::io::Error> {
 }
 
 pub fn search<'a>(query: &'a str, content: &'a str) -> Vec<&'a str> {
-    let mut matches_search = vec![];
-
-    for line in content.lines() {
-        if line.contains(&query) {
-            matches_search.push(line);
-        }
-    }
-
-    matches_search
+    content
+        .lines()
+        .filter(|line| line.contains(&query))
+        .collect()
 }
 
 pub fn search_case_insensitive<'a>(query: &'a str, content: &'a str) -> Vec<&'a str> {
