@@ -1,9 +1,10 @@
 #![allow(unused)]
 
-mod project_io;
-
+// mod iterators;
+mod smart_pointers;
 fn main() {
-    project_io::main();
+    smart_pointers::drop::example1();
+    // iterators::example3();
 }
 
 // mod traits;
