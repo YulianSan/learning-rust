@@ -1,9 +1,9 @@
 #![allow(unused)]
 
 // mod iterators;
-mod smart_pointers;
+mod threads;
 fn main() {
-    smart_pointers::drop::example1();
+    threads::example2();
     // iterators::example3();
 }
 
