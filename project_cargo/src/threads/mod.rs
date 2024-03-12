@@ -2,6 +2,8 @@ use std::{
     thread::{self, spawn, JoinHandle},
     time::Duration,
 };
+pub mod channel;
+
 pub fn example1() {
     let handle: JoinHandle<()> = thread::spawn(|| {
         for i in 1..10 {
