@@ -3,6 +3,7 @@ use std::{
     time::Duration,
 };
 pub mod channel;
+pub mod mutex;
 
 pub fn example1() {
     let handle: JoinHandle<()> = thread::spawn(|| {

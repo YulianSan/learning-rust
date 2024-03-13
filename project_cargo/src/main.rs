@@ -3,7 +3,7 @@
 // mod iterators;
 mod threads;
 fn main() {
-    threads::channel::example2();
+    threads::mutex::example2();
     // iterators::example3();
 }
 
