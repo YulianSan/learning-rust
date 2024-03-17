@@ -6,7 +6,7 @@ pub fn example1() {
 // recursive enum
 // | List                        |
 // | i32  | Pointer to other List|
-enum List {
+pub enum List {
     Cons(i32, Box<List>),
     Nil,
 }

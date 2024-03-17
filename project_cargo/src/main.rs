@@ -1,9 +1,11 @@
 #![allow(unused)]
 
 // mod iterators;
-mod threads;
+mod smart_pointers;
+use crate::smart_pointers::cycle;
+
 fn main() {
-    threads::mutex::example2();
+    cycle::example3();
     // iterators::example3();
 }
 
