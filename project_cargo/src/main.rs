@@ -1,11 +1,11 @@
 #![allow(unused)]
 
 // mod iterators;
-mod smart_pointers;
-use crate::smart_pointers::cycle;
+mod oop;
 
 fn main() {
-    cycle::example3();
+    oop::encapsulation::example1();
+    // game_test::main();
     // iterators::example3();
 }
 
