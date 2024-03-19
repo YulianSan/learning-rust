@@ -4,7 +4,7 @@
 mod oop;
 
 fn main() {
-    oop::encapsulation::example1();
+    oop::gui::example1();
     // game_test::main();
     // iterators::example3();
 }
