@@ -4,7 +4,7 @@
 mod oop;
 
 fn main() {
-    oop::gui::example1();
+    oop::patterns::example9();
     // game_test::main();
     // iterators::example3();
 }

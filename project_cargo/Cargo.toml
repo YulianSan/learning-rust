@@ -7,3 +7,10 @@ edition = "2021"
 
 [dependencies]
 rand = "0.8.5"
+
+# profile dev when you run cargo build
+[profile.dev]
+opt-level = 0
+# profile release when you run cargo build --release
+[profile.release]
+opt-level = 3
