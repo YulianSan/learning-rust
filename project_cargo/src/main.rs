@@ -1,10 +1,9 @@
 #![allow(unused)]
 
-// mod iterators;
-mod oop;
+mod advanced;
 
 fn main() {
-    oop::patterns::example9();
+    advanced::r#unsafe::example3();
     // game_test::main();
     // iterators::example3();
 }
