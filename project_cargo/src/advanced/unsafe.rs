@@ -20,6 +20,7 @@ pub fn example1() {
         println!("r1 is: {}", *r1);
         println!("r2 is: {}", *r2);
         println!("r3 is: {}", *r2);
+        println!("r is: {}", *r);
     }
 }
 
@@ -44,5 +45,36 @@ pub fn example3() {
                 slice::from_raw_parts_mut(ptr.add(mid), len - mid),
             )
         }
+    }
+}
+
+pub fn example4() {
+    // using C in Rust
+    extern "C" {
+        fn abs(input: i32) -> i32;
+    }
+
+    unsafe {
+        println!("Absolute value of -3 according to C: {}", abs(-3));
+    }
+}
+
+pub fn example5() {
+    static mut COUNTER: u32 = 0;
+
+    fn add_to_count(inc: u32) {
+        unsafe {
+            COUNTER += inc;
+        }
+    }
+
+    unsafe {
+        COUNTER = COUNTER + 7;
+    }
+
+    add_to_count(3);
+
+    unsafe {
+        println!("COUNTER: {}", COUNTER);
     }
 }
