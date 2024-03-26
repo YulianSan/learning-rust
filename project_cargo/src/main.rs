@@ -3,7 +3,7 @@
 mod advanced;
 
 fn main() {
-    advanced::r#unsafe::example5();
+    advanced::traits::example1();
     // game_test::main();
     // iterators::example3();
 }
