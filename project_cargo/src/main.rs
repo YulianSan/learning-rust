@@ -3,7 +3,7 @@
 mod advanced;
 
 fn main() {
-    advanced::traits::example1();
+    advanced::traits::example6();
     // game_test::main();
     // iterators::example3();
 }

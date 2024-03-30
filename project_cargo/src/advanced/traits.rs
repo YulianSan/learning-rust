@@ -1,4 +1,6 @@
-use crate::advanced::traits;
+use std::fmt;
+use std::ops::Add;
+use std::process::Output;
 
 pub fn example1() {
     trait TestType {
@@ -59,4 +61,151 @@ pub fn example1() {
     test_generic_i32.test();
     test_generic_string.test();
     test_type.test();
+}
+
+pub fn example2() {
+    #[derive(Debug, PartialEq)]
+    struct Point {
+        x: i32,
+        y: i32,
+    }
+
+    // set default generic
+    // trait Add<Rhs = Self> {
+    //     type Output;
+    //
+    //     fn add(self, rhs: Rhs) -> Self::Output;
+    // }
+
+    impl Add for Point {
+        type Output = Point;
+
+        fn add(self, other: Self) -> Self::Output {
+            Point {
+                x: self.x + other.x,
+                y: self.y + other.y,
+            }
+        }
+    }
+
+    println!("{:?}", Point { x: 1, y: 0 } + Point { x: 2, y: 3 });
+
+    assert_eq!(
+        Point { x: 1, y: 0 } + Point { x: 2, y: 3 },
+        Point { x: 3, y: 3 }
+    );
+}
+
+pub fn example3() {
+    #[derive(Debug)]
+    struct Millimeters(u32);
+    struct Meters(u32);
+
+    // Add has default generic Rhs = Self
+    impl Add<Meters> for Millimeters {
+        type Output = Millimeters;
+
+        fn add(self, other: Meters) -> Self::Output {
+            Millimeters(self.0 + (other.0 * 1000))
+        }
+    }
+
+    let me = Meters(1);
+    let mi = Millimeters(1000);
+    // Millimeters always in right because impl trait add
+    println!("{:?}", mi + me);
+    // this cause error
+    // println!("{:?}", me + mi);
+}
+
+pub fn example4() {
+    trait Pilot {
+        fn fly(&self);
+    }
+
+    trait Wizard {
+        fn fly(&self);
+    }
+
+    struct Human;
+
+    impl Pilot for Human {
+        fn fly(&self) {
+            println!("This is your captain speaking.");
+        }
+    }
+
+    impl Wizard for Human {
+        fn fly(&self) {
+            println!("Up!");
+        }
+    }
+
+    impl Human {
+        fn fly(&self) {
+            println!("*waving arms furiously*");
+        }
+    }
+
+    let person = Human;
+    // call fly method of impl Human
+    person.fly();
+    Human::fly(&person);
+    Pilot::fly(&person);
+    Wizard::fly(&person);
+}
+
+pub fn example5() {
+    struct Dog;
+    trait Animal {
+        fn baby_name() -> String;
+    }
+
+    impl Dog {
+        fn baby_name() -> String {
+            String::from("Spot")
+        }
+    }
+
+    impl Animal for Dog {
+        fn baby_name() -> String {
+            String::from("puppy")
+        }
+    }
+
+    println!("A baby dog is called a {}", Dog::baby_name());
+    // need say the struct name
+    println!("A baby dog is called a {}", <Dog as Animal>::baby_name());
+}
+
+pub fn example6() {
+    // this trait require implement Display
+    trait OutlinePrint: fmt::Display {
+        fn outline_print(&self) {
+            let output = self.to_string();
+            let len = output.len();
+            println!("{}", "*".repeat(len + 4));
+            println!("*{}*", " ".repeat(len + 2));
+            println!("* {} *", output);
+            println!("*{}*", " ".repeat(len + 2));
+            println!("{}", "*".repeat(len + 4));
+        }
+    }
+
+    struct Point {
+        x: i32,
+        y: i32,
+    }
+
+    impl fmt::Display for Point {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            write!(f, "test")
+        }
+    }
+
+    impl OutlinePrint for Point {}
+
+    let point = Point { x: 0, y: 10 };
+
+    point.outline_print();
 }
