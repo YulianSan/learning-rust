@@ -1,5 +1,5 @@
-use std::fmt;
-use std::ops::Add;
+use std::fmt::{self, Display};
+use std::ops::{Add, Deref};
 use std::process::Output;
 
 pub fn example1() {
@@ -179,7 +179,7 @@ pub fn example5() {
 }
 
 pub fn example6() {
-    // this trait require implement Display
+    // this trait require implement Display, force
     trait OutlinePrint: fmt::Display {
         fn outline_print(&self) {
             let output = self.to_string();
@@ -208,4 +208,54 @@ pub fn example6() {
     let point = Point { x: 0, y: 10 };
 
     point.outline_print();
+}
+
+pub fn example7() {
+    struct DisplayVec<T: Display>(Vec<T>);
+
+    impl fmt::Display for DisplayVec<i32> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            // write!(
+            //     f,
+            //     "{}",
+            //     &self
+            //         .0
+            //         .iter()
+            //         .map(|n| n.to_string())
+            //         .collect::<Vec<String>>()
+            //         .join(", ")
+            // )
+
+            write!(
+                f,
+                "numbers {}",
+                &self.0.iter().fold(String::new(), |acc, n| {
+                    if acc.is_empty() {
+                        n.to_string()
+                    } else {
+                        acc + ", " + &n.to_string()
+                    }
+                })
+            )
+        }
+    }
+
+    // implement deref to allow use methods of Vec
+    impl<T: Display> Deref for DisplayVec<T> {
+        type Target = Vec<T>;
+        fn deref(&self) -> &Self::Target {
+            &self.0
+        }
+    }
+
+    impl fmt::Display for DisplayVec<String> {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            write!(f, "strings {}", self.0.join(", "))
+        }
+    }
+
+    let x = DisplayVec(vec![String::from("hello"), String::from("world")]);
+    let y = DisplayVec(vec![1, 2, 123, 54, 90]);
+    println!("x = {}", x);
+    println!("y = {}", y);
 }
