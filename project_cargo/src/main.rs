@@ -3,7 +3,7 @@
 mod advanced;
 
 fn main() {
-    advanced::types::example2();
+    advanced::functions::example4();
     // game_test::main();
     // iterators::example3();
 }
