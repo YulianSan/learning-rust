@@ -1,9 +1,9 @@
 #![allow(unused)]
 
-mod advanced;
+mod macros;
 
 fn main() {
-    advanced::functions::example4();
+    macros::example1();
     // game_test::main();
     // iterators::example3();
 }
