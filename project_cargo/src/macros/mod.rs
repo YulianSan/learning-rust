@@ -1,3 +1,5 @@
+use my_macros_lib::route;
+
 pub fn example1() {
     #[macro_export]
     macro_rules! my_vec {
@@ -15,4 +17,13 @@ pub fn example1() {
     let x = my_vec!(1, 2, 3);
     let x: Vec<i32> = my_vec!();
     println!("{:?}", x);
+}
+
+pub fn example2() {
+    #[route("GET", "/")]
+    fn route_hello() {
+        println!("Hello");
+    }
+
+    route_hello();
 }

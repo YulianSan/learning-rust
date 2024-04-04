@@ -3,7 +3,7 @@
 mod macros;
 
 fn main() {
-    macros::example1();
+    macros::example2();
     // game_test::main();
     // iterators::example3();
 }
