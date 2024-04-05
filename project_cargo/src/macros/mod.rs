@@ -1,4 +1,4 @@
-use my_macros_lib::route;
+use my_macros_lib::{route, vec_int};
 
 pub fn example1() {
     #[macro_export]
@@ -26,4 +26,9 @@ pub fn example2() {
     }
 
     route_hello();
+}
+
+pub fn example3() {
+    let x = vec_int!(1, 2, 3);
+    println!("{x:?}");
 }
