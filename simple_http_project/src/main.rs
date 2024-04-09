@@ -3,7 +3,10 @@ use std::{
     io::{prelude::*, BufReader, Result},
     net::{TcpListener, TcpStream},
     path::PathBuf,
+    thread,
 };
+
+use simple_http_project::ThreadPool;
 
 struct Page {
     file_path: PathBuf,
@@ -25,11 +28,14 @@ impl Page {
 
 fn main() {
     let listener = TcpListener::bind("127.0.0.1:8000").unwrap();
+    let pool = ThreadPool::new(4);
     for stream in listener.incoming() {
         let stream = stream.unwrap();
         println!("Connection established!");
 
-        handle_request(stream)
+        pool.execute(|| handle_request(stream));
+        // using infinite numbers of threads
+        // thread::spawn(|| handle_request(stream));
     }
 }
 
@@ -42,12 +48,14 @@ fn handle_request(mut stream: TcpStream) {
     //     .take_while(|line| !line.is_empty())
     //     .collect();
     //
-    // println!("Request: {_http_request:#?}");
+    // println!("Request: {http_request:#?}");
 
-    let (file_path, status_line) = if request_line == "GET / HTTP/1.1" {
-        ("public/hello.html", "HTTP/2.0 200 OK")
-    } else {
-        ("public/errors/404.html", "HTTP/2.0 404 NOT FOUND")
+    let (file_path, status_line) = match request_line.as_str() {
+        "GET / HTTP/1.1" => ("public/hello.html", "HTTP/2.0 200 OK"),
+        _ => {
+            thread::sleep(std::time::Duration::from_secs(5));
+            ("public/errors/404.html", "HTTP/2.0 404 NOT FOUND")
+        }
     };
 
     let page = Page {
