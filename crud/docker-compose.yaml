@@ -1,0 +1,39 @@
+services:
+  # app:
+  #   env_file:
+  #     - .env
+  #   container_name: crud-app
+  #   build: .
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+  #   ports:
+  #     - "7979:7979"
+  #   networks:
+  #     - default
+  #   volumes:
+  #     - "$PWD:/usr/src/crud/"
+  db:
+    container_name: crud-db
+    image: postgres:16
+    environment:
+      - POSTGRES_PASSWORD=P@ssw0rd123
+      - POSTGRES_DB=crud
+    ports:
+      - "5432:5432"
+    # healthcheck:
+    #   test: ["CMD-SHELL", "pg_isready", "-d", "crud"]
+    #   interval: 10s
+    #   timeout: 60s
+    #   retries: 10
+
+    networks:
+      - default
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+networks:
+  default:
+
+volumes:
+  postgres_data:
