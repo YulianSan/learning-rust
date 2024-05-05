@@ -1,8 +1,10 @@
 use std::cmp;
-use axum::{routing::{get, post, delete, put}, extract::{State, Path, Query}, http::StatusCode, Json};
+use axum::{routing::{get, post, delete, put}, extract::{State, Path, Query}, http::StatusCode, Json, middleware};
 use bcrypt::{hash, DEFAULT_COST};
 use sqlx::{Pool, Postgres};
 use serde::Deserialize;
+
+use crate::services;
 
 use super::models::{RegisterUser, User, UpdateUser};
 
@@ -156,7 +158,8 @@ pub fn routes () -> axum::Router<Pool<Postgres>> {
         .route("/", post(create_user))
         .route("/:id", get(show_user))
         .route("/:id", put(update_user))
-        .route("/:id", delete(delete_user));
+        .route("/:id", delete(delete_user))
+        .layer(middleware::from_fn(services::middleware::auth::auth));
 
     axum::Router::new().nest("/user", router)
 }
