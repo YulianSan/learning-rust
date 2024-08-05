@@ -1,4 +1,5 @@
 use my_macros_lib::{route, vec_int};
+pub mod macro_rules;
 
 pub fn example1() {
     #[macro_export]
@@ -14,8 +15,7 @@ pub fn example1() {
         };
     }
 
-    let x = my_vec!(1, 2, 3);
-    let x: Vec<i32> = my_vec!();
+    let x = vec!(1, 2, 3, 4);
     println!("{:?}", x);
 }
 
